@@ -27,21 +27,38 @@ function Dashboard() {
     <div style={{ fontFamily: "Arial", padding: "20px" }}>
       <Navbar />
       <h1>Dashboard</h1>
-      <p>
-        This app should support issue CRUD, counts by status, search/filter,
-        pagination, and authentication. :contentReference[oaicite:0]{index=0}
-      </p>
+      <p>Issue Tracker dashboard page</p>
 
       <div style={{ display: "flex", gap: "12px", margin: "20px 0" }}>
-        <div style={{ padding: "16px", border: "1px solid #ccc", borderRadius: "8px" }}>
+        <div
+          style={{
+            padding: "16px",
+            border: "1px solid #ccc",
+            borderRadius: "8px",
+          }}
+        >
           <h3>Open</h3>
           <p>1</p>
         </div>
-        <div style={{ padding: "16px", border: "1px solid #ccc", borderRadius: "8px" }}>
+
+        <div
+          style={{
+            padding: "16px",
+            border: "1px solid #ccc",
+            borderRadius: "8px",
+          }}
+        >
           <h3>In Progress</h3>
           <p>1</p>
         </div>
-        <div style={{ padding: "16px", border: "1px solid #ccc", borderRadius: "8px" }}>
+
+        <div
+          style={{
+            padding: "16px",
+            border: "1px solid #ccc",
+            borderRadius: "8px",
+          }}
+        >
           <h3>Resolved</h3>
           <p>0</p>
         </div>

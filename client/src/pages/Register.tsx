@@ -1,12 +1,23 @@
-import { useState, type FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState, type FormEvent } from "react";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import {
+  Alert,
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Container,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import Navbar from "../components/Navbar";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { register, resetAuthState } from "../features/auth/authSlice";
 
 function Register() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
   const { isLoading, isError, isSuccess, message } = useAppSelector(
     (state) => state.auth
   );
@@ -15,81 +26,93 @@ function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(resetAuthState());
+      navigate("/login");
+    }
+  }, [isSuccess, navigate, dispatch]);
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-
     dispatch(register({ name, email, password }));
   };
 
-  if (isSuccess) {
-    dispatch(resetAuthState());
-    navigate("/login");
-  }
-
   return (
-    <div style={pageStyle}>
-      <div style={cardStyle}>
-        <h1>Register</h1>
+    <>
+      <Navbar />
+      <Box
+        sx={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          background:
+            "linear-gradient(180deg, #041d3d 0%, #f8fafc 50%, #ffffff82 100%)",
+          py: 6,
+        }}
+      >
+        <Container maxWidth="sm">
+          <Card>
+            <CardContent sx={{ p: 4 }}>
+              <Stack spacing={3}>
+                <Box textAlign="center">
+                  <Typography variant="h4" gutterBottom>
+                    Create your account
+                  </Typography>
+                  <Typography color="text.secondary">
+                    Start managing issues with a clean and powerful workflow.
+                  </Typography>
+                </Box>
 
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            placeholder="Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            style={inputStyle}
-          />
+                {isError && <Alert severity="error">{message}</Alert>}
 
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            style={inputStyle}
-          />
+                <Box component="form" onSubmit={handleSubmit}>
+                  <Stack spacing={2.5}>
+                    <TextField
+                      label="Full Name"
+                      fullWidth
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                    />
+                    <TextField
+                      label="Email"
+                      type="email"
+                      fullWidth
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <TextField
+                      label="Password"
+                      type="password"
+                      fullWidth
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={inputStyle}
-          />
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      size="large"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? "Creating account..." : "Register"}
+                    </Button>
+                  </Stack>
+                </Box>
 
-          <button type="submit" style={buttonStyle}>
-            {isLoading ? "Loading..." : "Register"}
-          </button>
-        </form>
-
-        {isError && <p style={{ color: "red" }}>{message}</p>}
-      </div>
-    </div>
+                <Typography textAlign="center" color="text.secondary">
+                  Already have an account?{" "}
+                  <Button component={RouterLink} to="/login">
+                    Login
+                  </Button>
+                </Typography>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Container>
+      </Box>
+    </>
   );
 }
-
-const pageStyle = {
-  height: "100vh",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-};
-
-const cardStyle = {
-  padding: "30px",
-  border: "1px solid #ccc",
-  borderRadius: "10px",
-};
-
-const inputStyle = {
-  display: "block",
-  margin: "10px 0",
-  padding: "10px",
-  width: "250px",
-};
-
-const buttonStyle = {
-  padding: "10px",
-  width: "100%",
-};
 
 export default Register;

@@ -1,12 +1,23 @@
-import { useState, type FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState, type FormEvent } from "react";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  Container,
+  Stack,
+  TextField,
+  Typography,
+  Alert,
+} from "@mui/material";
+import Navbar from "../components/Navbar";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { login, resetAuthState } from "../features/auth/authSlice";
 
 function Login() {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
   const { isLoading, isError, isSuccess, message } = useAppSelector(
     (state) => state.auth
   );
@@ -14,74 +25,87 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(resetAuthState());
+      navigate("/dashboard");
+    }
+  }, [isSuccess, navigate, dispatch]);
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-
     dispatch(login({ email, password }));
   };
 
-  // Redirect after success
-  if (isSuccess) {
-    dispatch(resetAuthState());
-    navigate("/dashboard");
-  }
-
   return (
-    <div style={pageStyle}>
-      <div style={cardStyle}>
-        <h1>Login</h1>
+    <>
+      <Navbar />
+      <Box
+        sx={{
+          minHeight: "100vh",
+          display: "flex",
+          alignItems: "center",
+          background:
+            "linear-gradient(180deg, #041d3d 0%, #f8fafc 50%, #ffffff82 100%)",
+          py: 6,
+        }}
+      >
+        <Container maxWidth="sm">
+          <Card>
+            <CardContent sx={{ p: 4 }}>
+              <Stack spacing={3}>
+                <Box textAlign="center">
+                  <Typography variant="h4" gutterBottom>
+                    Welcome back
+                  </Typography>
+                  <Typography color="text.secondary">
+                    Sign in to manage your issues professionally.
+                  </Typography>
+                </Box>
 
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            style={inputStyle}
-          />
+                {isError && <Alert severity="error">{message}</Alert>}
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={inputStyle}
-          />
+                <Box component="form" onSubmit={handleSubmit}>
+                  <Stack spacing={2.5}>
+                    <TextField
+                      label="Email"
+                      type="email"
+                      fullWidth
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
+                    <TextField
+                      label="Password"
+                      type="password"
+                      fullWidth
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                    />
 
-          <button type="submit" style={buttonStyle}>
-            {isLoading ? "Loading..." : "Login"}
-          </button>
-        </form>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      size="large"
+                      disabled={isLoading}
+                    >
+                      {isLoading ? "Signing in..." : "Login"}
+                    </Button>
+                  </Stack>
+                </Box>
 
-        {isError && <p style={{ color: "red" }}>{message}</p>}
-      </div>
-    </div>
+                <Typography textAlign="center" color="text.secondary">
+                  Don&apos;t have an account?{" "}
+                  <Button component={RouterLink} to="/register">
+                    Register
+                  </Button>
+                </Typography>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Container>
+      </Box>
+    </>
   );
 }
-
-const pageStyle = {
-  height: "100vh",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-};
-
-const cardStyle = {
-  padding: "30px",
-  border: "1px solid #ccc",
-  borderRadius: "10px",
-};
-
-const inputStyle = {
-  display: "block",
-  margin: "10px 0",
-  padding: "10px",
-  width: "250px",
-};
-
-const buttonStyle = {
-  padding: "10px",
-  width: "100%",
-};
 
 export default Login;

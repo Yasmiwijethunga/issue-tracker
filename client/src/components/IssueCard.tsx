@@ -36,8 +36,8 @@ function IssueCard({ issue }: IssueCardProps) {
     <Card
       sx={{
         height: "100%",
-        minHeight: 270,
-        borderRadius: 2,
+        minHeight: 290,
+        borderRadius: 5,
         transition: "all 0.25s ease",
         "&:hover": {
           transform: "translateY(-6px)",
@@ -54,6 +54,8 @@ function IssueCard({ issue }: IssueCardProps) {
                 fontWeight: 800,
                 mb: 1,
                 lineHeight: 1.25,
+                wordBreak: "break-word",
+                overflowWrap: "anywhere",
               }}
             >
               {issue.title}
@@ -63,7 +65,13 @@ function IssueCard({ issue }: IssueCardProps) {
               color="text.secondary"
               sx={{
                 lineHeight: 1.7,
-                minHeight: 48,
+                minHeight: 72,
+                overflow: "hidden",
+                display: "-webkit-box",
+                WebkitLineClamp: 3,
+                WebkitBoxOrient: "vertical",
+                wordBreak: "break-word",
+                overflowWrap: "anywhere",
               }}
             >
               {issue.description}

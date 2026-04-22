@@ -158,7 +158,15 @@ function IssueDetails() {
                 {isEditing ? "Edit Issue" : issue.title}
               </Typography>
               {!isEditing && (
-                <Typography color="text.secondary">
+                <Typography
+                  sx={{
+                    color: "text.secondary",
+                    lineHeight: 1.8,
+                    whiteSpace: "pre-wrap",
+                    wordBreak: "break-word",
+                    overflowWrap: "anywhere",
+                  }}
+                >
                   {issue.description}
                 </Typography>
               )}

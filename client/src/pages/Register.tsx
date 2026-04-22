@@ -83,17 +83,18 @@ function Register() {
           overflow: "hidden",
           background:
             "radial-gradient(circle at top left, rgba(37, 99, 235, 0.15), transparent 28%), radial-gradient(circle at top right, rgba(124, 58, 237, 0.15), transparent 25%), linear-gradient(180deg, #0b1120 0%, #111827 100%)",
-          py: { xs: 5, md: 7 },
+          py: { xs: 3, sm: 4, md: 7 },
+          px: { xs: 2, sm: 3 },
         }}
       >
-        <Container maxWidth="xl">
-          <Grid container spacing={4} sx={{ alignItems: "center" }}>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <Stack spacing={4} sx={{ pr: { md: 4 } }}>
+        <Container maxWidth="xl" sx={{ px: { xs: 0, sm: 2 } }}>
+          <Grid container spacing={{ xs: 3, sm: 4, md: 6 }} sx={{ alignItems: "center", minHeight: "calc(100vh - 120px)" }}>
+            <Grid size={{ xs: 12, md: 6 }} sx={{ display: { xs: "none", md: "block" } }}>
+              <Stack spacing={{ xs: 2, sm: 3, md: 4 }} sx={{ pr: { md: 4 } }}>
                 <Typography
                   variant="h2"
                   sx={{
-                    fontSize: { xs: "2.3rem", md: "4rem" },
+                    fontSize: { xs: "1.8rem", sm: "2.4rem", md: "4rem" },
                     lineHeight: 1.1,
                     color: "#f8fafc",
                     maxWidth: 760,
@@ -105,7 +106,7 @@ function Register() {
                 <Typography
                   sx={{
                     color: "rgba(248,250,252,0.76)",
-                    fontSize: { xs: "1rem", md: "1.1rem" },
+                    fontSize: { xs: "0.85rem", sm: "0.95rem", md: "1.1rem" },
                     lineHeight: 1.8,
                     maxWidth: 680,
                   }}
@@ -114,7 +115,7 @@ function Register() {
                   updating, and resolving issues with a clean and professional workflow.
                 </Typography>
 
-                <Stack spacing={2}>
+                <Stack spacing={{ xs: 1, sm: 1.5, md: 2 }}>
                   <Feature text="Track issue status from Open to Closed" />
                   <Feature text="Search and filter issues quickly" />
                   <Feature text="Edit, delete, and manage issue details easily" />
@@ -126,32 +127,32 @@ function Register() {
             <Grid size={{ xs: 12, md: 6 }}>
               <Card
                 sx={{
-                  borderRadius: 2.5,
+                  borderRadius: { xs: 2, md: 2.5 },
                   background: "rgba(15, 23, 42, 0.7)",
                   border: "1px solid rgba(255, 255, 255, 0.08)",
-                  boxShadow: "0 20px 50px rgba(0, 0, 0, 0.3)",
+                  boxShadow: { xs: "0 10px 30px rgba(0, 0, 0, 0.2)", md: "0 20px 50px rgba(0, 0, 0, 0.3)" },
                 }}
               >
-                <CardContent sx={{ p: { xs: 3, md: 4.5 } }}>
-                  <Stack spacing={3.5}>
+                <CardContent sx={{ p: { xs: 2.5, sm: 3, md: 4.5 } }}>
+                  <Stack spacing={{ xs: 2.5, sm: 3, md: 3.5 }}>
                     <Box>
-                      <Typography variant="h4" gutterBottom sx={{ color: "#f8fafc", fontWeight: 700 }}>
+                      <Typography variant="h4" gutterBottom sx={{ color: "#f8fafc", fontWeight: 700, fontSize: { xs: "1.5rem", sm: "1.8rem", md: "2rem" } }}>
                         Create Account
                       </Typography>
-                      <Typography sx={{ color: "rgba(248,250,252,0.70)", fontSize: "0.95rem" }}>
+                      <Typography sx={{ color: "rgba(248,250,252,0.70)", fontSize: { xs: "0.85rem", sm: "0.9rem", md: "0.95rem" } }}>
                         Start using IssueTracker with your own account.
                       </Typography>
                     </Box>
 
-                    {isError && <Alert severity="error">{message}</Alert>}
+                    {isError && <Alert severity="error" sx={{ fontSize: { xs: "0.85rem", sm: "0.9rem" } }}>{message}</Alert>}
                     {isSuccess && (
-                      <Alert severity="success">
+                      <Alert severity="success" sx={{ fontSize: { xs: "0.85rem", sm: "0.9rem" } }}>
                         Registration successful. Redirecting to login...
                       </Alert>
                     )}
 
                     <Box component="form" onSubmit={handleSubmit}>
-                      <Stack spacing={3}>
+                      <Stack spacing={{ xs: 2.5, sm: 2.75, md: 3 }}>
                         <TextField
                           label="Full Name"
                           value={name}
@@ -233,11 +234,12 @@ function Register() {
                           disabled={isLoading}
                           fullWidth
                           sx={{
-                            py: 1.5,
+                            py: { xs: 1.2, sm: 1.4, md: 1.5 },
                             fontWeight: 700,
-                            fontSize: "1rem",
+                            fontSize: { xs: "0.9rem", sm: "0.95rem", md: "1rem" },
                             textTransform: "none",
-                            borderRadius: 2,
+                            borderRadius: { xs: 1.5, md: 2 },
+                            minHeight: { xs: 44, md: "auto" },
                           }}
                         >
                           {isLoading ? "Creating account..." : "Register"}
@@ -245,7 +247,7 @@ function Register() {
                       </Stack>
                     </Box>
 
-                    <Typography sx={{ textAlign: "center", fontSize: "0.9rem" }} color="text.secondary">
+                    <Typography sx={{ textAlign: "center", fontSize: { xs: "0.8rem", sm: "0.85rem", md: "0.9rem" } }} color="text.secondary">
                       Already have an account?{" "}
                       <Button
                         component={RouterLink}
@@ -255,6 +257,7 @@ function Register() {
                           fontWeight: 700,
                           color: "#3b82f6",
                           p: 0,
+                          fontSize: { xs: "0.8rem", sm: "0.85rem", md: "0.9rem" },
                           "&:hover": { background: "transparent", textDecoration: "underline" },
                         }}
                       >

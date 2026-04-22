@@ -86,8 +86,7 @@ function IssueDetails() {
 
     const originalStatus = issue?.status;
     const statusChangedToSensitive =
-      status !== originalStatus &&
-      (status === "Resolved" || status === "Closed");
+      status !== originalStatus && (status === "Resolved" || status === "Closed");
 
     if (statusChangedToSensitive) {
       setPendingSubmit(() => submitUpdate);
@@ -146,17 +145,28 @@ function IssueDetails() {
     <>
       <Navbar />
 
-      <Container maxWidth="lg" sx={{ py: 5 }}>
+      <Container maxWidth="lg" sx={{ py: { xs: 3, md: 5 } }}>
         <Stack spacing={3}>
           <Stack
             direction={{ xs: "column", sm: "row" }}
             spacing={2}
-            sx={{ justifyContent: "space-between" }}
+            sx={{
+              justifyContent: "space-between",
+              alignItems: { xs: "flex-start", sm: "center" },
+            }}
           >
-            <Box>
-              <Typography variant="h3" gutterBottom>
+            <Box sx={{ flex: 1, minWidth: 0 }}>
+              <Typography
+                variant="h3"
+                gutterBottom
+                sx={{
+                  wordBreak: "break-word",
+                  overflowWrap: "anywhere",
+                }}
+              >
                 {isEditing ? "Edit Issue" : issue.title}
               </Typography>
+
               {!isEditing && (
                 <Typography
                   sx={{
@@ -165,6 +175,7 @@ function IssueDetails() {
                     whiteSpace: "pre-wrap",
                     wordBreak: "break-word",
                     overflowWrap: "anywhere",
+                    maxWidth: "100%",
                   }}
                 >
                   {issue.description}
@@ -172,7 +183,17 @@ function IssueDetails() {
               )}
             </Box>
 
-            <Button component={RouterLink} to="/dashboard" variant="outlined">
+            <Button
+              component={RouterLink}
+              to="/dashboard"
+              variant="outlined"
+              sx={{
+                flexShrink: 0,
+                minWidth: 180,
+                whiteSpace: "nowrap",
+                alignSelf: { xs: "flex-start", sm: "center" },
+              }}
+            >
               Back to Dashboard
             </Button>
           </Stack>
@@ -181,36 +202,28 @@ function IssueDetails() {
 
           {!isEditing ? (
             <Card>
-              <CardContent sx={{ p: 4 }}>
+              <CardContent sx={{ p: { xs: 2.5, md: 4 } }}>
                 <Grid container spacing={3}>
                   <Grid size={{ xs: 12, md: 4 }}>
-                    <Card sx={{ boxShadow: "none" }}>
+                    <Card sx={{ boxShadow: "none", height: "100%" }}>
                       <CardContent>
                         <Typography color="text.secondary">Status</Typography>
-                        <Chip
-                          label={issue.status}
-                          color="primary"
-                          sx={{ mt: 1 }}
-                        />
+                        <Chip label={issue.status} color="primary" sx={{ mt: 1 }} />
                       </CardContent>
                     </Card>
                   </Grid>
 
                   <Grid size={{ xs: 12, md: 4 }}>
-                    <Card sx={{ boxShadow: "none" }}>
+                    <Card sx={{ boxShadow: "none", height: "100%" }}>
                       <CardContent>
                         <Typography color="text.secondary">Priority</Typography>
-                        <Chip
-                          label={issue.priority}
-                          color="warning"
-                          sx={{ mt: 1 }}
-                        />
+                        <Chip label={issue.priority} color="warning" sx={{ mt: 1 }} />
                       </CardContent>
                     </Card>
                   </Grid>
 
                   <Grid size={{ xs: 12, md: 4 }}>
-                    <Card sx={{ boxShadow: "none" }}>
+                    <Card sx={{ boxShadow: "none", height: "100%" }}>
                       <CardContent>
                         <Typography color="text.secondary">Severity</Typography>
                         <Typography sx={{ mt: 1 }}>
@@ -221,11 +234,9 @@ function IssueDetails() {
                   </Grid>
 
                   <Grid size={{ xs: 12, md: 6 }}>
-                    <Card sx={{ boxShadow: "none" }}>
+                    <Card sx={{ boxShadow: "none", height: "100%" }}>
                       <CardContent>
-                        <Typography color="text.secondary">
-                          Created At
-                        </Typography>
+                        <Typography color="text.secondary">Created At</Typography>
                         <Typography sx={{ mt: 1 }}>
                           {issue.createdAt
                             ? new Date(issue.createdAt).toLocaleString()
@@ -236,11 +247,9 @@ function IssueDetails() {
                   </Grid>
 
                   <Grid size={{ xs: 12, md: 6 }}>
-                    <Card sx={{ boxShadow: "none" }}>
+                    <Card sx={{ boxShadow: "none", height: "100%" }}>
                       <CardContent>
-                        <Typography color="text.secondary">
-                          Updated At
-                        </Typography>
+                        <Typography color="text.secondary">Updated At</Typography>
                         <Typography sx={{ mt: 1 }}>
                           {issue.updatedAt
                             ? new Date(issue.updatedAt).toLocaleString()
@@ -251,11 +260,12 @@ function IssueDetails() {
                   </Grid>
                 </Grid>
 
-                <Stack direction="row" spacing={2} sx={{ mt: 4 }}>
-                  <Button
-                    variant="contained"
-                    onClick={() => setIsEditing(true)}
-                  >
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  sx={{ mt: 4, flexWrap: "wrap" }}
+                >
+                  <Button variant="contained" onClick={() => setIsEditing(true)}>
                     Edit Issue
                   </Button>
                   <Button
@@ -270,7 +280,7 @@ function IssueDetails() {
             </Card>
           ) : (
             <Card>
-              <CardContent sx={{ p: 4 }}>
+              <CardContent sx={{ p: { xs: 2.5, md: 4 } }}>
                 <Box component="form" onSubmit={handleUpdate}>
                   <Stack spacing={2.5}>
                     <TextField
@@ -339,7 +349,11 @@ function IssueDetails() {
                       </Grid>
                     </Grid>
 
-                    <Stack direction="row" spacing={2}>
+                    <Stack
+                      direction="row"
+                      spacing={2}
+                      sx={{ flexWrap: "wrap" }}
+                    >
                       <Button
                         type="submit"
                         variant="contained"

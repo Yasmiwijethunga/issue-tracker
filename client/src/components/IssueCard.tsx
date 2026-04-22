@@ -37,7 +37,7 @@ function IssueCard({ issue }: IssueCardProps) {
       sx={{
         height: "100%",
         minHeight: 290,
-        borderRadius: 5,
+        borderRadius: 2,
         transition: "all 0.25s ease",
         "&:hover": {
           transform: "translateY(-6px)",

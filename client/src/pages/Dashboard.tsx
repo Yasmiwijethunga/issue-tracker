@@ -88,10 +88,10 @@ function Dashboard() {
           {/* Hero */}
           <Card
             sx={{
-              borderRadius: { xs: 5, md: 8 },
+              borderRadius: { xs: 2, md: 2},
               overflow: "hidden",
               background:
-                "linear-gradient(135deg, rgba(37,99,235,0.95) 0%, rgba(124,58,237,0.95) 100%)",
+                "linear-gradient(135deg, rgba(7, 48, 135, 0) 0%, rgba(74, 10, 186, 0.41) 100%)",
               border: "1px solid rgba(255,255,255,0.10)",
               boxShadow: "0 20px 45px rgba(0,0,0,0.24)",
             }}
@@ -275,7 +275,7 @@ function Dashboard() {
           </Grid>
 
           {/* Toolbar */}
-          <Card sx={{ borderRadius: { xs: 5, md: 6 } }}>
+          <Card sx={{ borderRadius: { xs: 1, md: 1 } }}>
             <CardContent sx={{ p: { xs: 2, md: 2.5 } }}>
               <Stack spacing={2}>
                 <Grid container spacing={2} sx={{ alignItems: "center" }}>
@@ -328,7 +328,7 @@ function Dashboard() {
                       sx={{
                         minHeight: 56,
                         width: "100%",
-                        px: 2,
+                        px: 3,
                         whiteSpace: "nowrap",
                       }}
                     >
@@ -378,7 +378,7 @@ function Dashboard() {
           {isError && <Alert severity="error">{message}</Alert>}
 
           {!isLoading && !isError && issues.length === 0 && (
-            <Card sx={{ borderRadius: 5 }}>
+            <Card sx={{ borderRadius: 2 }}>
               <CardContent sx={{ p: 4 }}>
                 <Typography variant="h6" gutterBottom>
                   No issues found
@@ -419,7 +419,7 @@ function Dashboard() {
 }
 
 const statCardSx = {
-  borderRadius: 5,
+  borderRadius: 1,
   height: "100%",
   minHeight: 140,
 };
@@ -434,7 +434,7 @@ const toolbarChipSx = {
 const iconBoxBlue = {
   width: 52,
   height: 52,
-  borderRadius: "16px",
+  borderRadius: "12px",
   display: "grid",
   placeItems: "center",
   background: "rgba(59,130,246,0.16)",
@@ -444,7 +444,7 @@ const iconBoxBlue = {
 const iconBoxOrange = {
   width: 52,
   height: 52,
-  borderRadius: "16px",
+  borderRadius: "12px",
   display: "grid",
   placeItems: "center",
   background: "rgba(245,158,11,0.16)",
@@ -454,7 +454,7 @@ const iconBoxOrange = {
 const iconBoxGreen = {
   width: 52,
   height: 52,
-  borderRadius: "16px",
+  borderRadius: "12px",
   display: "grid",
   placeItems: "center",
   background: "rgba(34,197,94,0.16)",
@@ -464,7 +464,7 @@ const iconBoxGreen = {
 const iconBoxSlate = {
   width: 52,
   height: 52,
-  borderRadius: "16px",
+  borderRadius: "12px",
   display: "grid",
   placeItems: "center",
   background: "rgba(148,163,184,0.16)",

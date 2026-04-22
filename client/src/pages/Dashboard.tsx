@@ -115,7 +115,7 @@ function Dashboard() {
                 />
 
                 <Typography
-                  variant="h2"
+                  variant="h5"
                   sx={{
                     fontSize: {
                       xs: "2rem",

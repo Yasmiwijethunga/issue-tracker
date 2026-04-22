@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link as RouterLink, useLocation } from "react-router-dom";
+import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
 import {
   AppBar,
   Box,
@@ -14,23 +14,36 @@ import {
 import MenuRoundedIcon from "@mui/icons-material/MenuRounded";
 import BugReportRoundedIcon from "@mui/icons-material/BugReportRounded";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
-
-const navItems = [
-  { label: "Home", path: "/" },
-  { label: "Dashboard", path: "/dashboard" },
-  { label: "Login", path: "/login" },
-  { label: "Register", path: "/register" },
-];
+import LogoutRoundedIcon from "@mui/icons-material/LogoutRounded";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { logout } from "../features/auth/authSlice";
 
 function Navbar() {
   const location = useLocation();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { user } = useAppSelector((state) => state.auth);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const navItems = user
+    ? [
+        { label: "Dashboard", path: "/dashboard" },
+      ]
+    : [
+        
+        { label: "Login", path: "/login" },
+      ];
 
   const toggleDrawer = () => {
     setMobileOpen((prev) => !prev);
   };
 
   const isActive = (path: string) => location.pathname === path;
+
+  const handleLogout = async () => {
+    await dispatch(logout());
+    navigate("/login");
+  };
 
   return (
     <>
@@ -53,10 +66,9 @@ function Navbar() {
               justifyContent: "space-between",
             }}
           >
-            {/* Brand */}
             <Box
               component={RouterLink}
-              to="/"
+              to={user ? "/dashboard" : "/"}
               sx={{
                 display: "flex",
                 alignItems: "center",
@@ -106,7 +118,6 @@ function Navbar() {
               </Box>
             </Box>
 
-            {/* Desktop Nav */}
             <Stack
               direction="row"
               spacing={1}
@@ -144,30 +155,52 @@ function Navbar() {
                 </Button>
               ))}
 
-              {/* <Button
-                component={RouterLink}
-                to="/dashboard"
-                startIcon={<DashboardRoundedIcon />}
-                variant="outlined"
-                sx={{
-                  ml: 1,
-                  px: 2.2,
-                  py: 1.1,
-                  borderRadius: "14px",
-                  borderColor: "rgba(255,255,255,0.14)",
-                  color: "#f8fafc",
-                  background: "rgba(255,255,255,0.04)",
-                  "&:hover": {
-                    borderColor: "rgba(255,255,255,0.22)",
-                    background: "rgba(255,255,255,0.08)",
-                  },
-                }}
-              >
-                Open App
-              </Button> */}
+              {user ? (
+                <Button
+                  startIcon={<LogoutRoundedIcon />}
+                  variant="outlined"
+                  onClick={handleLogout}
+                  sx={{
+                    ml: 1,
+                    px: 2.2,
+                    py: 1.1,
+                    borderRadius: "14px",
+                    borderColor: "rgba(255,255,255,0.14)",
+                    color: "#f8fafc",
+                    background: "rgba(255,255,255,0.04)",
+                    "&:hover": {
+                      borderColor: "rgba(255,255,255,0.22)",
+                      background: "rgba(255,255,255,0.08)",
+                    },
+                  }}
+                >
+                  Logout
+                </Button>
+              ) : (
+                <Button
+                  component={RouterLink}
+                  to="/login"
+                  startIcon={<DashboardRoundedIcon />}
+                  variant="outlined"
+                  sx={{
+                    ml: 1,
+                    px: 2.2,
+                    py: 1.1,
+                    borderRadius: "14px",
+                    borderColor: "rgba(255,255,255,0.14)",
+                    color: "#f8fafc",
+                    background: "rgba(255,255,255,0.04)",
+                    "&:hover": {
+                      borderColor: "rgba(255,255,255,0.22)",
+                      background: "rgba(255,255,255,0.08)",
+                    },
+                  }}
+                >
+                  Open App
+                </Button>
+              )}
             </Stack>
 
-            {/* Mobile Menu Button */}
             <IconButton
               onClick={toggleDrawer}
               sx={{
@@ -183,7 +216,6 @@ function Navbar() {
         </Container>
       </AppBar>
 
-      {/* Mobile Drawer */}
       <Drawer
         anchor="right"
         open={mobileOpen}
@@ -201,17 +233,8 @@ function Navbar() {
         }}
       >
         <Box sx={{ mb: 2, mt: 1 }}>
-         <Typography sx={{ fontSize: "1.15rem", fontWeight: 800 }}>
+          <Typography sx={{ fontSize: "1.15rem", fontWeight: 800 }}>
             Navigation
-          </Typography>
-          <Typography
-            sx={{
-              color: "rgba(248,250,252,0.66)",
-              fontSize: "0.9rem",
-              mt: 0.5,
-            }}
-          >
-            Move through the app quickly
           </Typography>
         </Box>
 
@@ -242,24 +265,46 @@ function Navbar() {
             </Button>
           ))}
 
-          <Button
-            component={RouterLink}
-            to="/dashboard"
-            onClick={toggleDrawer}
-            variant="outlined"
-            startIcon={<DashboardRoundedIcon />}
-            sx={{
-              mt: 1,
-              justifyContent: "flex-start",
-              px: 2,
-              py: 1.4,
-              borderRadius: "14px",
-              borderColor: "rgba(255,255,255,0.12)",
-              color: "#f8fafc",
-            }}
-          >
-            Open Dashboard
-          </Button>
+          {user ? (
+            <Button
+              onClick={() => {
+                toggleDrawer();
+                handleLogout();
+              }}
+              fullWidth
+              variant="outlined"
+              startIcon={<LogoutRoundedIcon />}
+              sx={{
+                justifyContent: "flex-start",
+                px: 2,
+                py: 1.4,
+                borderRadius: "14px",
+                borderColor: "rgba(255,255,255,0.12)",
+                color: "#f8fafc",
+              }}
+            >
+              Logout
+            </Button>
+          ) : (
+            <Button
+              component={RouterLink}
+              to="/login"
+              onClick={toggleDrawer}
+              fullWidth
+              variant="outlined"
+              startIcon={<DashboardRoundedIcon />}
+              sx={{
+                justifyContent: "flex-start",
+                px: 2,
+                py: 1.4,
+                borderRadius: "14px",
+                borderColor: "rgba(255,255,255,0.12)",
+                color: "#f8fafc",
+              }}
+            >
+              Open App
+            </Button>
+          )}
         </Stack>
       </Drawer>
     </>

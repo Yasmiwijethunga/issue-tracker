@@ -1,7 +1,7 @@
 import axios from "axios";
 
-// const API_URL = "http://localhost:5000/api/auth/";
 const API_URL = `${import.meta.env.VITE_API_URL}/auth/`;
+
 export interface RegisterPayload {
   name: string;
   email: string;
@@ -13,6 +13,10 @@ export interface LoginPayload {
   password: string;
 }
 
+export interface RegisterResponse {
+  message: string;
+}
+
 export interface AuthResponse {
   _id: string;
   name: string;
@@ -20,13 +24,8 @@ export interface AuthResponse {
   token: string;
 }
 
-const register = async (userData: RegisterPayload): Promise<AuthResponse> => {
-  const response = await axios.post<AuthResponse>(`${API_URL}register`, userData);
-
-  if (response.data) {
-    localStorage.setItem("user", JSON.stringify(response.data));
-  }
-
+const register = async (userData: RegisterPayload): Promise<RegisterResponse> => {
+  const response = await axios.post<RegisterResponse>(`${API_URL}register`, userData);
   return response.data;
 };
 

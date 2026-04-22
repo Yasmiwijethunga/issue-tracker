@@ -86,66 +86,7 @@ function Dashboard() {
       >
         <Stack spacing={3.5}>
           {/* Hero */}
-          <Card
-            sx={{
-              borderRadius: { xs: 2, md: 2},
-              overflow: "hidden",
-              background:
-                "linear-gradient(135deg, rgba(7, 48, 135, 0) 0%, rgba(74, 10, 186, 0.41) 100%)",
-              border: "1px solid rgba(255,255,255,0.10)",
-              boxShadow: "0 20px 45px rgba(0,0,0,0.24)",
-            }}
-          >
-            <CardContent
-              sx={{
-                px: { xs: 3, md: 5 },
-                py: { xs: 3.5, md: 4.5 },
-              }}
-            >
-              <Stack spacing={2}>
-                <Chip
-                  label="Issue Operations Center"
-                  sx={{
-                    alignSelf: "flex-start",
-                    backgroundColor: "rgba(255,255,255,0.18)",
-                    color: "#fff",
-                    fontWeight: 700,
-                    backdropFilter: "blur(8px)",
-                  }}
-                />
-
-                <Typography
-                  variant="h5"
-                  sx={{
-                    fontSize: {
-                      xs: "2rem",
-                      sm: "2.4rem",
-                      md: "3rem",
-                      lg: "3.4rem",
-                    },
-                    lineHeight: 1.05,
-                    color: "#fff",
-                    maxWidth: 760,
-                    letterSpacing: "-0.03em",
-                  }}
-                >
-                  Track, prioritize, and resolve issues with confidence.
-                </Typography>
-
-                <Typography
-                  sx={{
-                    color: "rgba(255,255,255,0.86)",
-                    fontSize: { xs: "1rem", md: "1.05rem" },
-                    maxWidth: 610,
-                    lineHeight: 1.7,
-                  }}
-                >
-                  Manage issue workflows in a polished dashboard built for
-                  clarity, speed, and professional team operations.
-                </Typography>
-              </Stack>
-            </CardContent>
-          </Card>
+          
 
           {/* Stats */}
           <Grid container spacing={2.5}>

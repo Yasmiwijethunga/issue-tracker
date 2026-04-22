@@ -29,11 +29,15 @@ const createIssue = async (req, res) => {
 };
 
 // @desc    Get all issues
-// @route   GET /api/issues
+// @route   GET /api/issues?page=1&limit=10
 // @access  Private
 const getIssues = async (req, res) => {
   try {
-    const { search = "", status, priority } = req.query;
+    const { search = "", status, priority, page = 1, limit = 10 } = req.query;
+
+    const pageNum = Math.max(1, parseInt(page, 10) || 1);
+    const pageLimit = Math.min(100, Math.max(1, parseInt(limit, 10) || 10));
+    const skip = (pageNum - 1) * pageLimit;
 
     const query = {
       createdBy: req.user._id,
@@ -43,17 +47,29 @@ const getIssues = async (req, res) => {
       query.title = { $regex: search, $options: "i" };
     }
 
-    if (status) {
+    if (status && status !== "All Statuses") {
       query.status = status;
     }
 
-    if (priority) {
+    if (priority && priority !== "All Priorities") {
       query.priority = priority;
     }
 
-    const issues = await Issue.find(query).sort({ createdAt: -1 });
+    const total = await Issue.countDocuments(query);
+    const issues = await Issue.find(query)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(pageLimit);
 
-    return res.status(200).json(issues);
+    return res.status(200).json({
+      issues,
+      pagination: {
+        total,
+        page: pageNum,
+        limit: pageLimit,
+        pages: Math.ceil(total / pageLimit),
+      },
+    });
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }

@@ -86,7 +86,7 @@ function IssueForm({ onSuccess }: IssueFormProps) {
               />
 
               <Grid container spacing={2}>
-                <Grid item xs={12} md={4}>
+                <Grid size={{ xs: 12, md: 4 }}>
                   <TextField
                     select
                     label="Status"
@@ -101,7 +101,7 @@ function IssueForm({ onSuccess }: IssueFormProps) {
                   </TextField>
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid size={{ xs: 12, md: 4 }}>
                   <TextField
                     select
                     label="Priority"
@@ -115,7 +115,7 @@ function IssueForm({ onSuccess }: IssueFormProps) {
                   </TextField>
                 </Grid>
 
-                <Grid item xs={12} md={4}>
+                <Grid size={{ xs: 12, md: 4 }}>
                   <TextField
                     label="Severity"
                     value={severity}

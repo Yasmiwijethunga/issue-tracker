@@ -88,7 +88,7 @@ function Landing() {
           </Stack>
 
           <Grid container spacing={3}>
-            <Grid item size={12}>
+            <Grid size={{ xs: 12 }}>
               <Card>
                 <CardContent sx={{ p: 3 }}>
                   <DashboardRoundedIcon
@@ -110,7 +110,7 @@ function Landing() {
               </Card>
             </Grid>
 
-            <Grid item size={12}>
+            <Grid size={{ xs: 12 }}>
               <Card>
                 <CardContent sx={{ p: 3 }}>
                   <ManageSearchRoundedIcon
@@ -132,7 +132,7 @@ function Landing() {
               </Card>
             </Grid>
 
-            <Grid item size={12}>
+            <Grid size={{ xs: 12 }}>
               <Card>
                 <CardContent sx={{ p: 3 }}>
                   <SecurityRoundedIcon

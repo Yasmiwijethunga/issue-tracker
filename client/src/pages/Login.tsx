@@ -54,7 +54,7 @@ function Login() {
           <Card>
             <CardContent sx={{ p: 4 }}>
               <Stack spacing={3}>
-                <Box textAlign="center">
+                <Box sx={{ textAlign: "center" }}>
                   <Typography variant="h4" gutterBottom>
                     Welcome back
                   </Typography>
@@ -93,7 +93,7 @@ function Login() {
                   </Stack>
                 </Box>
 
-                <Typography textAlign="center" color="text.secondary">
+                <Typography sx={{ textAlign: "center" }} color="text.secondary">
                   Don&apos;t have an account?{" "}
                   <Button component={RouterLink} to="/register">
                     Register

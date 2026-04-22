@@ -181,13 +181,15 @@ function Dashboard() {
 
           {/* Stats */}
           <Grid container spacing={2.5}>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }}>
               <Card sx={statCardSx}>
                 <CardContent sx={{ p: 3 }}>
                   <Stack
                     direction="row"
-                    justifyContent="space-between"
-                    alignItems="center"
+                    sx={{
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
                   >
                     <Box>
                       <Typography color="text.secondary" gutterBottom>
@@ -210,13 +212,15 @@ function Dashboard() {
               </Card>
             </Grid>
 
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }}>
               <Card sx={statCardSx}>
                 <CardContent sx={{ p: 3 }}>
                   <Stack
                     direction="row"
-                    justifyContent="space-between"
-                    alignItems="center"
+                    sx={{
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
                   >
                     <Box>
                       <Typography color="text.secondary" gutterBottom>
@@ -244,8 +248,10 @@ function Dashboard() {
                 <CardContent sx={{ p: 3 }}>
                   <Stack
                     direction="row"
-                    justifyContent="space-between"
-                    alignItems="center"
+                    sx={{
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}
                   >
                     <Box>
                       <Typography color="text.secondary" gutterBottom>
@@ -270,13 +276,12 @@ function Dashboard() {
           </Grid>
 
           {/* Toolbar */}
-          <Card sx={{ borderRadius: { xs: 1, md: 2} }}>
+          <Card sx={{ borderRadius: { xs: 1, md: 2 } }}>
             <CardContent sx={{ p: { xs: 2, md: 2.5 } }}>
               <Stack spacing={2}>
                 <Stack
-                  direction={{ xs: "column", lg: "row" }}
-                  spacing={2}
-                  alignItems={{ xs: "stretch", lg: "center" }}
+                  direction="row"
+                  sx={{ justifyContent: "space-between", alignItems: "center" }}
                 >
                   <TextField
                     label="Search issues"
@@ -330,12 +335,7 @@ function Dashboard() {
 
                 <Divider sx={{ borderColor: "rgba(255,255,255,0.06)" }} />
 
-                <Stack
-                  direction="row"
-                  spacing={1.2}
-                  useFlexGap
-                  flexWrap="wrap"
-                >
+                <Stack direction="row" spacing={1.2} useFlexGap flexWrap="wrap">
                   <Chip label={`Total: ${issues.length}`} sx={toolbarChipSx} />
                   <Chip label={`Open: ${openCount}`} sx={toolbarChipSx} />
                   <Chip

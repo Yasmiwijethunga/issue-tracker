@@ -55,7 +55,7 @@ function Register() {
           <Card>
             <CardContent sx={{ p: 4 }}>
               <Stack spacing={3}>
-                <Box textAlign="center">
+                <Box sx={{ textAlign: "center" }}>
                   <Typography variant="h4" gutterBottom>
                     Create your account
                   </Typography>
@@ -100,7 +100,7 @@ function Register() {
                   </Stack>
                 </Box>
 
-                <Typography textAlign="center" color="text.secondary">
+                <Typography sx={{ textAlign: "center" }} color="text.secondary">
                   Already have an account?{" "}
                   <Button component={RouterLink} to="/login">
                     Login

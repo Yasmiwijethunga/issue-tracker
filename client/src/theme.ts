@@ -107,7 +107,7 @@ const theme = createTheme({
           paddingLeft: 18,
           paddingRight: 18,
         },
-        containedPrimary: {
+        contained: {
           boxShadow: "0 10px 25px rgba(37,99,235,0.30)",
         },
       },

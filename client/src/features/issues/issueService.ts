@@ -1,8 +1,8 @@
 import axios from "axios";
 import type { Issue } from "../../types/issue";
 
-const API_URL = "http://localhost:5000/api/issues/";
-
+// const API_URL = "http://localhost:5000/api/issues/";
+const API_URL = `${import.meta.env.VITE_API_URL}/issues/`;
 interface FetchIssuesParams {
   search?: string;
   status?: string;

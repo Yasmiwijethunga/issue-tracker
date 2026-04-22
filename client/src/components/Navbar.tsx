@@ -91,7 +91,7 @@ function Navbar() {
                     letterSpacing: "-0.02em",
                   }}
                 >
-                  IssueTracker 
+                  IssueTracker
                 </Typography>
                 <Typography
                   sx={{
@@ -188,22 +188,28 @@ function Navbar() {
         anchor="right"
         open={mobileOpen}
         onClose={toggleDrawer}
-        PaperProps={{
-          sx: {
-            width: 290,
-            background: "rgba(15, 23, 42, 0.96)",
-            color: "#f8fafc",
-            borderLeft: "1px solid rgba(255,255,255,0.08)",
-            p: 2,
+        slotProps={{
+          paper: {
+            sx: {
+              width: 290,
+              background: "rgba(15, 23, 42, 0.96)",
+              color: "#f8fafc",
+              borderLeft: "1px solid rgba(255,255,255,0.08)",
+              p: 2,
+            },
           },
         }}
       >
         <Box sx={{ mb: 2, mt: 1 }}>
-          <Typography fontSize="1.15rem" fontWeight={800}>
+         <Typography sx={{ fontSize: "1.15rem", fontWeight: 800 }}>
             Navigation
           </Typography>
           <Typography
-            sx={{ color: "rgba(248,250,252,0.66)", fontSize: "0.9rem", mt: 0.5 }}
+            sx={{
+              color: "rgba(248,250,252,0.66)",
+              fontSize: "0.9rem",
+              mt: 0.5,
+            }}
           >
             Move through the app quickly
           </Typography>

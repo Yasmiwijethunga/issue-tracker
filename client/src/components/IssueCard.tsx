@@ -46,7 +46,7 @@ function IssueCard({ issue }: IssueCardProps) {
       }}
     >
       <CardContent sx={{ p: 3 }}>
-        <Stack spacing={2.2} height="100%">
+        <Stack spacing={2.2} sx={{ height: "100%" }}>
           <Box>
             <Typography
               variant="h5"
@@ -70,7 +70,12 @@ function IssueCard({ issue }: IssueCardProps) {
             </Typography>
           </Box>
 
-          <Stack direction="row" spacing={1} flexWrap="wrap" useFlexGap>
+          <Stack
+            direction="row"
+            spacing={1}
+            useFlexGap
+            sx={{ flexWrap: "wrap" }}
+          >
             <Chip label={issue.status} color={statusColor as any} />
             <Chip
               label={issue.priority}

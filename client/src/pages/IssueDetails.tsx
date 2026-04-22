@@ -172,7 +172,7 @@ function IssueDetails() {
             <Card>
               <CardContent sx={{ p: 4 }}>
                 <Grid container spacing={3}>
-                  <Grid item xs={12} md={4}>
+                  <Grid size={{ xs: 12, md: 4 }}>
                     <Card sx={{ boxShadow: "none" }}>
                       <CardContent>
                         <Typography color="text.secondary">Status</Typography>
@@ -181,7 +181,7 @@ function IssueDetails() {
                     </Card>
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid size={{ xs: 12, md: 4 }}>
                     <Card sx={{ boxShadow: "none" }}>
                       <CardContent>
                         <Typography color="text.secondary">Priority</Typography>
@@ -190,7 +190,7 @@ function IssueDetails() {
                     </Card>
                   </Grid>
 
-                  <Grid item xs={12} md={4}>
+                  <Grid size={{ xs: 12, md: 4 }}>
                     <Card sx={{ boxShadow: "none" }}>
                       <CardContent>
                         <Typography color="text.secondary">Severity</Typography>
@@ -201,7 +201,7 @@ function IssueDetails() {
                     </Card>
                   </Grid>
 
-                  <Grid item xs={12} md={6}>
+                  <Grid size={{ xs: 12, md: 6 }}>
                     <Card sx={{ boxShadow: "none" }}>
                       <CardContent>
                         <Typography color="text.secondary">Created At</Typography>
@@ -214,7 +214,7 @@ function IssueDetails() {
                     </Card>
                   </Grid>
 
-                  <Grid item xs={12} md={6}>
+                  <Grid size={{ xs: 12, md: 6 }}>
                     <Card sx={{ boxShadow: "none" }}>
                       <CardContent>
                         <Typography color="text.secondary">Updated At</Typography>
@@ -268,7 +268,7 @@ function IssueDetails() {
                     />
 
                     <Grid container spacing={2}>
-                      <Grid item xs={12} md={4}>
+                      <Grid size={{ xs: 12, md: 4 }}>
                         <TextField
                           select
                           label="Status"
@@ -285,7 +285,7 @@ function IssueDetails() {
                         </TextField>
                       </Grid>
 
-                      <Grid item xs={12} md={4}>
+                      <Grid size={{ xs: 12, md: 4 }}>
                         <TextField
                           select
                           label="Priority"
@@ -301,7 +301,7 @@ function IssueDetails() {
                         </TextField>
                       </Grid>
 
-                      <Grid item xs={12} md={4}>
+                      <Grid size={{ xs: 12, md: 4 }}>
                         <TextField
                           label="Severity"
                           value={severity}

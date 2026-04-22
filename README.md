@@ -1,21 +1,27 @@
+
 # Issue Tracker
 
 A full-stack issue tracking and bug management system built with modern web technologies. Create, manage, and track issues with an intuitive UI, powerful filtering, and real-time updates.
 
-## 🎯 Features
+Live Demo
+🌐 Frontend: https://issue-tracker-y.vercel.app/
+⚙️ Backend API: https://issue-tracker-production-8fc5.up.railway.app/
 
-- ✅ **User Authentication**: Secure registration and login with JWT tokens
-- ✅ **Issue Management**: Create, read, update, and delete issues
-- ✅ **Search & Filter**: Search by title, filter by status and priority
-- ✅ **Pagination**: Browse large issue lists with smart pagination controls
-- ✅ **Status Tracking**: Open, In Progress, Resolved, Closed statuses
-- ✅ **Priority Levels**: Low, Medium, High priority classification
-- ✅ **Responsive Design**: Dark glassmorphic UI, mobile-friendly
-- ✅ **Protected Routes**: Authentication-based access control
-- ✅ **Real-time Validation**: Form validation with instant feedback
-- ✅ **Confirmation Modals**: Safe deletion and status change confirmations
 
-## 🏗️ Tech Stack
+##  Features
+
+- **User Authentication**: Secure registration and login with JWT tokens
+- **Issue Management**: Create, read, update, and delete issues
+- **Search & Filter**: Search by title, filter by status and priority
+- **Pagination**: Browse large issue lists with smart pagination controls
+- **Status Tracking**: Open, In Progress, Resolved, Closed statuses
+- **Priority Levels**: Low, Medium, High priority classification
+- **Responsive Design**: Dark glassmorphic UI, mobile-friendly
+- **Protected Routes**: Authentication-based access control
+- **Real-time Validation**: Form validation with instant feedback
+- **Confirmation Modals**: Safe deletion and status change confirmations
+
+##  Tech Stack
 
 ### Frontend
 - **Framework**: React 19.2.4 with Vite 8.0.4
@@ -37,7 +43,7 @@ A full-stack issue tracking and bug management system built with modern web tech
 - **Backend**: Railway
 - **Database**: MongoDB Atlas
 
-## 📋 Project Structure
+##  Project Structure
 
 ```
 Issue Tracker/
@@ -84,7 +90,7 @@ Issue Tracker/
 
 ```
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - Node.js 18+ and npm 9+
@@ -111,7 +117,7 @@ cd ../client
 npm install
 ```
 
-### 🔧 Environment Setup
+###  Environment Setup
 
 #### Backend (.env file)
 
@@ -141,10 +147,10 @@ VITE_API_URL=http://localhost:5000/api
 
 **Production (Vercel):**
 ```env
-VITE_API_URL=https://your-backend-railway-url/api
+VITE_API_URL=https://issue-tracker-production-8fc5.up.railway.app/api
 ```
 
-## 💻 Development
+##  Development
 
 ### Running Locally
 
@@ -160,7 +166,7 @@ Server will run on `http://localhost:5000`
 cd client
 npm run dev
 ```
-Frontend will run on `http://localhost:5175` (or next available port)
+Frontend will run on `http://localhost:5173` (or next available port)
 
 ### Building for Production
 
@@ -174,14 +180,14 @@ Output: `dist/` folder ready for Vercel
 **Backend:**
 No build step needed; runs directly with Node.js
 
-## 📡 API Endpoints
+##  API Endpoints
 
 ### Authentication
 
 | Method | Endpoint | Description | Auth Required |
 |--------|----------|-------------|---|
-| POST | `/api/auth/register` | Register new user | ❌ |
-| POST | `/api/auth/login` | Login user, returns JWT | ❌ |
+| POST | `/api/auth/register` | Register new user | 
+| POST | `/api/auth/login` | Login user, returns JWT |
 
 **Register Request:**
 ```json
@@ -278,7 +284,7 @@ GET /api/issues?page=1&limit=10&search=bug&status=Open&priority=High
 }
 ```
 
-## 📦 Deployment
+##  Deployment
 
 ### Frontend (Vercel)
 
@@ -310,7 +316,7 @@ GET /api/issues?page=1&limit=10&search=bug&status=Open&priority=High
    - `NODE_ENV=production`
 4. Deploy automatically
 
-4. Get the Railway URL (e.g., `https://yourapp-prod.up.railway.app`)
+4. Get the Railway URL (e.g., `issue-tracker-production-8fc5.up.railway.app`)
 5. Update frontend `VITE_API_URL` environment variable
 
 ##  Testing

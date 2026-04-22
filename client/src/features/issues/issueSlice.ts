@@ -7,6 +7,8 @@ interface FetchIssuesParams {
   search?: string;
   status?: string;
   priority?: string;
+  page?: number;
+  limit?: number;
 }
 
 interface IssueState {
@@ -33,7 +35,9 @@ export const fetchIssues = createAsyncThunk<
   { rejectValue: string }
 >("issues/fetchAll", async (params, thunkAPI) => {
   try {
-    return await issueService.getIssues(params);
+    const response = await issueService.getIssues(params);
+    // Extract issues array from paginated response
+    return response.issues;
   } catch (error: any) {
     const message =
       error?.response?.data?.message || error?.message || "Failed to fetch issues";

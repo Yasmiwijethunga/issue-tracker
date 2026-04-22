@@ -22,8 +22,10 @@ import TaskAltRoundedIcon from "@mui/icons-material/TaskAltRounded";
 import Navbar from "../components/Navbar";
 import IssueCard from "../components/IssueCard";
 import IssueForm from "../components/IssueForm";
+import Pagination from "../components/Pagination";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { fetchIssues, resetIssueState } from "../features/issues/issueSlice";
+import issueService from "../features/issues/issueService";
 
 function Dashboard() {
   const dispatch = useAppDispatch();
@@ -36,6 +38,8 @@ function Dashboard() {
   const [status, setStatus] = useState("All Statuses");
   const [priority, setPriority] = useState("All Priorities");
   const [showForm, setShowForm] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     dispatch(resetIssueState());
@@ -50,8 +54,37 @@ function Dashboard() {
   }, [search]);
 
   useEffect(() => {
-    dispatch(fetchIssues({ search: debouncedSearch, status, priority }));
+    setCurrentPage(1); // Reset to page 1 when filters change
+    dispatch(fetchIssues({ search: debouncedSearch, status, priority, page: 1 }));
   }, [dispatch, debouncedSearch, status, priority]);
+
+  // Fetch pagination data whenever page changes
+  useEffect(() => {
+    if (currentPage > 1) {
+      dispatch(fetchIssues({ search: debouncedSearch, status, priority, page: currentPage }));
+    }
+  }, [dispatch, currentPage, debouncedSearch, status, priority]);
+
+  // Get pagination metadata
+  useEffect(() => {
+    const getPaginationData = async () => {
+      try {
+        const response = await issueService.getIssues({
+          search: debouncedSearch,
+          status: status !== "All Statuses" ? status : undefined,
+          priority: priority !== "All Priorities" ? priority : undefined,
+          page: currentPage,
+        });
+        setTotalPages(response.pagination.pages);
+      } catch (error) {
+        console.error("Failed to fetch pagination data:", error);
+        // Estimate pages based on current issues length
+        setTotalPages(issues.length >= 10 ? currentPage + 1 : currentPage);
+      }
+    };
+
+    getPaginationData();
+  }, [debouncedSearch, status, priority, currentPage, issues.length]);
 
   const openCount = useMemo(
     () => issues.filter((issue) => issue.status === "Open").length,
@@ -308,7 +341,12 @@ function Dashboard() {
               onSuccess={() => {
                 setShowForm(false);
                 dispatch(
-                  fetchIssues({ search: debouncedSearch, status, priority }),
+                  fetchIssues({ 
+                    search: debouncedSearch, 
+                    status, 
+                    priority,
+                    page: currentPage 
+                  }),
                 );
               }}
             />
@@ -351,6 +389,15 @@ function Dashboard() {
                   </Grid>
                 ))}
               </Grid>
+
+              {totalPages > 1 && (
+                <Pagination
+                  currentPage={currentPage}
+                  totalPages={totalPages}
+                  onPageChange={setCurrentPage}
+                  isLoading={isLoading}
+                />
+              )}
             </Stack>
           )}
         </Stack>

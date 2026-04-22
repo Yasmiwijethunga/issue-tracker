@@ -18,54 +18,13 @@ import AddRoundedIcon from "@mui/icons-material/AddRounded";
 import BugReportRoundedIcon from "@mui/icons-material/BugReportRounded";
 import AutorenewRoundedIcon from "@mui/icons-material/AutorenewRounded";
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
+import TaskAltRoundedIcon from "@mui/icons-material/TaskAltRounded";
 import Navbar from "../components/Navbar";
 import IssueCard from "../components/IssueCard";
 import IssueForm from "../components/IssueForm";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-
 import { fetchIssues, resetIssueState } from "../features/issues/issueSlice";
-const statCardSx = {
-  borderRadius: 1,
-  height: "100%",
-  minHeight: 150,
-};
 
-const toolbarChipSx = {
-  backgroundColor: "rgba(255,255,255,0.05)",
-  color: "text.primary",
-  border: "1px solid rgba(255,255,255,0.08)",
-  fontWeight: 700,
-};
-
-const iconBoxBlue = {
-  width: 52,
-  height: 52,
-  borderRadius: 2,
-  display: "grid",
-  placeItems: "center",
-  background: "rgba(59,130,246,0.16)",
-  color: "#60a5fa",
-};
-
-const iconBoxOrange = {
-  width: 52,
-  height: 52,
-  borderRadius: 2,
-  display: "grid",
-  placeItems: "center",
-  background: "rgba(245,158,11,0.16)",
-  color: "#fbbf24",
-};
-
-const iconBoxGreen = {
-  width: 52,
-  height: 52,
-  borderRadius: 2,
-  display: "grid",
-  placeItems: "center",
-  background: "rgba(34,197,94,0.16)",
-  color: "#4ade80",
-};
 function Dashboard() {
   const dispatch = useAppDispatch();
   const { issues, isLoading, isError, message } = useAppSelector(
@@ -79,6 +38,10 @@ function Dashboard() {
   const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
+    dispatch(resetIssueState());
+  }, [dispatch]);
+
+  useEffect(() => {
     const timer = setTimeout(() => {
       setDebouncedSearch(search);
     }, 500);
@@ -89,9 +52,7 @@ function Dashboard() {
   useEffect(() => {
     dispatch(fetchIssues({ search: debouncedSearch, status, priority }));
   }, [dispatch, debouncedSearch, status, priority]);
-  useEffect(() => {
-    dispatch(resetIssueState());
-  }, [dispatch]);
+
   const openCount = useMemo(
     () => issues.filter((issue) => issue.status === "Open").length,
     [issues],
@@ -107,6 +68,11 @@ function Dashboard() {
     [issues],
   );
 
+  const closedCount = useMemo(
+    () => issues.filter((issue) => issue.status === "Closed").length,
+    [issues],
+  );
+
   return (
     <>
       <Navbar />
@@ -118,22 +84,22 @@ function Dashboard() {
           pb: { xs: 5, md: 6 },
         }}
       >
-        <Stack spacing={2.5}>
+        <Stack spacing={3.5}>
           {/* Hero */}
           <Card
             sx={{
-              borderRadius: { xs: 1, md: 2 },
+              borderRadius: { xs: 5, md: 8 },
               overflow: "hidden",
               background:
-                "linear-gradient(135deg, rgba(37, 100, 235, 0.14) 0%, rgba(124, 58, 237, 0.45) 100%)",
+                "linear-gradient(135deg, rgba(37,99,235,0.95) 0%, rgba(124,58,237,0.95) 100%)",
               border: "1px solid rgba(255,255,255,0.10)",
               boxShadow: "0 20px 45px rgba(0,0,0,0.24)",
             }}
           >
             <CardContent
               sx={{
-                px: { xs: 3, md: 3 },
-                py: { xs: 3.5, md: 2 },
+                px: { xs: 3, md: 5 },
+                py: { xs: 3.5, md: 4.5 },
               }}
             >
               <Stack spacing={2}>
@@ -154,8 +120,8 @@ function Dashboard() {
                     fontSize: {
                       xs: "2rem",
                       sm: "2.4rem",
-                      md: "2.5rem",
-                      lg: "2.5rem",
+                      md: "3rem",
+                      lg: "3.4rem",
                     },
                     lineHeight: 1.05,
                     color: "#fff",
@@ -183,15 +149,12 @@ function Dashboard() {
 
           {/* Stats */}
           <Grid container spacing={2.5}>
-            <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
               <Card sx={statCardSx}>
                 <CardContent sx={{ p: 3 }}>
                   <Stack
                     direction="row"
-                    sx={{
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
+                    sx={{ justifyContent: "space-between", alignItems: "center" }}
                   >
                     <Box>
                       <Typography color="text.secondary" gutterBottom>
@@ -214,15 +177,12 @@ function Dashboard() {
               </Card>
             </Grid>
 
-            <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
               <Card sx={statCardSx}>
                 <CardContent sx={{ p: 3 }}>
                   <Stack
                     direction="row"
-                    sx={{
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
+                    sx={{ justifyContent: "space-between", alignItems: "center" }}
                   >
                     <Box>
                       <Typography color="text.secondary" gutterBottom>
@@ -245,15 +205,12 @@ function Dashboard() {
               </Card>
             </Grid>
 
-            <Grid size={{ xs: 12, sm: 12, md: 4 }}>
+            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
               <Card sx={statCardSx}>
                 <CardContent sx={{ p: 3 }}>
                   <Stack
                     direction="row"
-                    sx={{
-                      justifyContent: "space-between",
-                      alignItems: "center",
-                    }}
+                    sx={{ justifyContent: "space-between", alignItems: "center" }}
                   >
                     <Box>
                       <Typography color="text.secondary" gutterBottom>
@@ -275,65 +232,98 @@ function Dashboard() {
                 </CardContent>
               </Card>
             </Grid>
+
+            <Grid size={{ xs: 12, sm: 6, md: 3 }}>
+              <Card sx={statCardSx}>
+                <CardContent sx={{ p: 3 }}>
+                  <Stack
+                    direction="row"
+                    sx={{ justifyContent: "space-between", alignItems: "center" }}
+                  >
+                    <Box>
+                      <Typography color="text.secondary" gutterBottom>
+                        Closed
+                      </Typography>
+                      <Typography
+                        sx={{
+                          fontSize: { xs: "2.4rem", md: "2.8rem" },
+                          fontWeight: 800,
+                        }}
+                      >
+                        {closedCount}
+                      </Typography>
+                    </Box>
+                    <Box sx={iconBoxSlate}>
+                      <TaskAltRoundedIcon />
+                    </Box>
+                  </Stack>
+                </CardContent>
+              </Card>
+            </Grid>
           </Grid>
 
           {/* Toolbar */}
-          <Card sx={{ borderRadius: { xs: 1, md: 2 } }}>
+          <Card sx={{ borderRadius: { xs: 5, md: 6 } }}>
             <CardContent sx={{ p: { xs: 2, md: 2.5 } }}>
               <Stack spacing={2}>
-                <Stack
-                  direction="row"
-                  sx={{ justifyContent: "space-between", alignItems: "center" }}
-                >
-                  <TextField
-                    label="Search issues"
-                    placeholder="Search by title..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    fullWidth
-                  />
+                <Grid container spacing={2.5} alignItems="center">
+                  <Grid size={{ xs: 12, lg: 7 }}>
+                    <TextField
+                      label="Search issues"
+                      placeholder="Search by title..."
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                      fullWidth
+                    />
+                  </Grid>
 
-                  <TextField
-                    select
-                    label="Status"
-                    value={status}
-                    onChange={(e) => setStatus(e.target.value)}
-                    sx={{ minWidth: { xs: "100%", md: 190 } }}
-                  >
-                    <MenuItem value="All Statuses">All Statuses</MenuItem>
-                    <MenuItem value="Open">Open</MenuItem>
-                    <MenuItem value="In Progress">In Progress</MenuItem>
-                    <MenuItem value="Resolved">Resolved</MenuItem>
-                    <MenuItem value="Closed">Closed</MenuItem>
-                  </TextField>
+                  <Grid size={{ xs: 12, sm: 6, lg: 2 }}>
+                    <TextField
+                      select
+                      label="Status"
+                      value={status}
+                      onChange={(e) => setStatus(e.target.value)}
+                      fullWidth
+                    >
+                      <MenuItem value="All Statuses">All Statuses</MenuItem>
+                      <MenuItem value="Open">Open</MenuItem>
+                      <MenuItem value="In Progress">In Progress</MenuItem>
+                      <MenuItem value="Resolved">Resolved</MenuItem>
+                      <MenuItem value="Closed">Closed</MenuItem>
+                    </TextField>
+                  </Grid>
 
-                  <TextField
-                    select
-                    label="Priority"
-                    value={priority}
-                    onChange={(e) => setPriority(e.target.value)}
-                    sx={{ minWidth: { xs: "100%", md: 190 } }}
-                  >
-                    <MenuItem value="All Priorities">All Priorities</MenuItem>
-                    <MenuItem value="Low">Low</MenuItem>
-                    <MenuItem value="Medium">Medium</MenuItem>
-                    <MenuItem value="High">High</MenuItem>
-                  </TextField>
+                  <Grid size={{ xs: 12, sm: 6, lg: 2 }}>
+                    <TextField
+                      select
+                      label="Priority"
+                      value={priority}
+                      onChange={(e) => setPriority(e.target.value)}
+                      fullWidth
+                    >
+                      <MenuItem value="All Priorities">All Priorities</MenuItem>
+                      <MenuItem value="Low">Low</MenuItem>
+                      <MenuItem value="Medium">Medium</MenuItem>
+                      <MenuItem value="High">High</MenuItem>
+                    </TextField>
+                  </Grid>
 
-                  <Button
-                    variant="contained"
-                    startIcon={<AddRoundedIcon />}
-                    onClick={() => setShowForm((prev) => !prev)}
-                    sx={{
-                      minHeight: 56,
-                      width: { xs: "100%", lg: "auto" },
-                      minWidth: { lg: 150 },
-                      px: 3,
-                    }}
-                  >
-                    {showForm ? "Hide Form" : "New Issue"}
-                  </Button>
-                </Stack>
+                  <Grid size={{ xs: 12, lg: 1 }}>
+                    <Button
+                      variant="contained"
+                      startIcon={<AddRoundedIcon />}
+                      onClick={() => setShowForm((prev) => !prev)}
+                      sx={{
+                        minHeight: 56,
+                        width: "100%",
+                        px: 2.2,
+                        whiteSpace: "nowrap",
+                      }}
+                    >
+                      {showForm ? "Hide Form" : "New Issue"}
+                    </Button>
+                  </Grid>
+                </Grid>
 
                 <Divider sx={{ borderColor: "rgba(255,255,255,0.06)" }} />
 
@@ -353,6 +343,7 @@ function Dashboard() {
                     label={`Resolved: ${resolvedCount}`}
                     sx={toolbarChipSx}
                   />
+                  <Chip label={`Closed: ${closedCount}`} sx={toolbarChipSx} />
                 </Stack>
               </Stack>
             </CardContent>
@@ -375,7 +366,7 @@ function Dashboard() {
           {isError && <Alert severity="error">{message}</Alert>}
 
           {!isLoading && !isError && issues.length === 0 && (
-            <Card sx={{ borderRadius: 2 }}>
+            <Card sx={{ borderRadius: 5 }}>
               <CardContent sx={{ p: 4 }}>
                 <Typography variant="h6" gutterBottom>
                   No issues found
@@ -414,5 +405,58 @@ function Dashboard() {
     </>
   );
 }
+
+const statCardSx = {
+  borderRadius: 5,
+  height: "100%",
+  minHeight: 150,
+};
+
+const toolbarChipSx = {
+  backgroundColor: "rgba(255,255,255,0.05)",
+  color: "text.primary",
+  border: "1px solid rgba(255,255,255,0.08)",
+  fontWeight: 700,
+};
+
+const iconBoxBlue = {
+  width: 52,
+  height: 52,
+  borderRadius: "16px",
+  display: "grid",
+  placeItems: "center",
+  background: "rgba(59,130,246,0.16)",
+  color: "#60a5fa",
+};
+
+const iconBoxOrange = {
+  width: 52,
+  height: 52,
+  borderRadius: "16px",
+  display: "grid",
+  placeItems: "center",
+  background: "rgba(245,158,11,0.16)",
+  color: "#fbbf24",
+};
+
+const iconBoxGreen = {
+  width: 52,
+  height: 52,
+  borderRadius: "16px",
+  display: "grid",
+  placeItems: "center",
+  background: "rgba(34,197,94,0.16)",
+  color: "#4ade80",
+};
+
+const iconBoxSlate = {
+  width: 52,
+  height: 52,
+  borderRadius: "16px",
+  display: "grid",
+  placeItems: "center",
+  background: "rgba(148,163,184,0.16)",
+  color: "#cbd5e1",
+};
 
 export default Dashboard;

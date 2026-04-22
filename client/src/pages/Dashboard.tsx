@@ -22,8 +22,8 @@ import Navbar from "../components/Navbar";
 import IssueCard from "../components/IssueCard";
 import IssueForm from "../components/IssueForm";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { fetchIssues } from "../features/issues/issueSlice";
 
+import { fetchIssues, resetIssueState } from "../features/issues/issueSlice";
 const statCardSx = {
   borderRadius: 1,
   height: "100%",
@@ -89,7 +89,9 @@ function Dashboard() {
   useEffect(() => {
     dispatch(fetchIssues({ search: debouncedSearch, status, priority }));
   }, [dispatch, debouncedSearch, status, priority]);
-
+  useEffect(() => {
+    dispatch(resetIssueState());
+  }, [dispatch]);
   const openCount = useMemo(
     () => issues.filter((issue) => issue.status === "Open").length,
     [issues],

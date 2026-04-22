@@ -9,19 +9,31 @@ interface FetchIssuesParams {
   priority?: string;
 }
 
-const getToken = (): string => {
+const getToken = (): string | null => {
   const user = localStorage.getItem("user");
 
   if (!user) {
-    throw new Error("User not found in localStorage");
+    return null;
   }
 
   const parsedUser = JSON.parse(user);
-  return parsedUser.token;
+  return parsedUser.token ?? null;
 };
 
-const createIssue = async (issueData: Partial<Issue>): Promise<Issue> => {
+const requireToken = (): string => {
   const token = getToken();
+
+  if (!token) {
+    throw new Error("Please login first");
+  }
+
+  return token;
+};
+
+
+
+const createIssue = async (issueData: Partial<Issue>): Promise<Issue> => {
+  const token = requireToken();
 
   const response = await axios.post<Issue>(API_URL, issueData, {
     headers: {
@@ -48,16 +60,14 @@ const getIssues = async (params?: FetchIssuesParams): Promise<Issue[]> => {
   const url = `${API_URL}${queryParams.toString() ? `?${queryParams.toString()}` : ""}`;
 
   const response = await axios.get<Issue[]>(url, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
   });
 
   return response.data;
 };
 
 const getIssueById = async (id: string): Promise<Issue> => {
-  const token = getToken();
+  const token = requireToken();
 
   const response = await axios.get<Issue>(`${API_URL}${id}`, {
     headers: {
@@ -75,7 +85,7 @@ const updateIssue = async ({
   id: string;
   issueData: Partial<Issue>;
 }): Promise<Issue> => {
-  const token = getToken();
+  const token = requireToken();
 
   const response = await axios.put<Issue>(`${API_URL}${id}`, issueData, {
     headers: {
@@ -87,7 +97,7 @@ const updateIssue = async ({
 };
 
 const deleteIssue = async (id: string): Promise<{ message: string }> => {
-  const token = getToken();
+  const token = requireToken();
 
   const response = await axios.delete<{ message: string }>(`${API_URL}${id}`, {
     headers: {
@@ -97,7 +107,6 @@ const deleteIssue = async (id: string): Promise<{ message: string }> => {
 
   return response.data;
 };
-
 const issueService = {
   createIssue,
   getIssues,

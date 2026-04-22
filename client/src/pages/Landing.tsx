@@ -8,7 +8,6 @@ import {
   Grid,
   Stack,
   Typography,
-  Chip,
 } from "@mui/material";
 import DashboardRoundedIcon from "@mui/icons-material/DashboardRounded";
 import SecurityRoundedIcon from "@mui/icons-material/SecurityRounded";
@@ -23,14 +22,14 @@ function Landing() {
       <Box
         sx={{
           minHeight: "100vh",
-          py: { xs: 6, md:8 },
-        
+          py: { xs: 6, md: 8 },
+
           background:
             "radial-gradient(circle at top left, rgba(37, 100, 235, 0.58), transparent 28%), radial-gradient(circle at top right, rgba(121, 56, 234, 0.57), transparent 25%), linear-gradient(180deg, #0b1120 0%, #111827 100%)",
         }}
       >
         <Container maxWidth="lg">
-          <Stack spacing={3} sx={{ textAlign:"left", mb: 6}}>
+          <Stack spacing={3} sx={{ textAlign: "left", mb: 6 }}>
             <Typography
               variant="h2"
               sx={{
@@ -60,8 +59,10 @@ function Landing() {
             <Stack
               direction={{ xs: "column", sm: "row" }}
               spacing={2}
-              justifyContent="center"
-              alignItems="center"
+              sx={{
+                justifyContent: "center",
+                alignItems: "center",
+              }}
             >
               <Button
                 component={RouterLink}

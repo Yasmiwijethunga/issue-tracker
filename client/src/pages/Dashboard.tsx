@@ -243,7 +243,7 @@ function Dashboard() {
               </Card>
             </Grid>
 
-            <Grid item xs={12} sm={12} md={4}>
+            <Grid size={{ xs: 12, sm: 12, md: 4 }}>
               <Card sx={statCardSx}>
                 <CardContent sx={{ p: 3 }}>
                   <Stack
@@ -335,7 +335,12 @@ function Dashboard() {
 
                 <Divider sx={{ borderColor: "rgba(255,255,255,0.06)" }} />
 
-                <Stack direction="row" spacing={1.2} useFlexGap flexWrap="wrap">
+                <Stack
+                  direction="row"
+                  spacing={1.2}
+                  useFlexGap
+                  sx={{ flexWrap: "wrap" }}
+                >
                   <Chip label={`Total: ${issues.length}`} sx={toolbarChipSx} />
                   <Chip label={`Open: ${openCount}`} sx={toolbarChipSx} />
                   <Chip
@@ -395,7 +400,7 @@ function Dashboard() {
 
               <Grid container spacing={3}>
                 {issues.map((issue) => (
-                  <Grid item xs={12} sm={6} lg={4} key={issue._id}>
+                  <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={issue._id}>
                     <IssueCard issue={issue} />
                   </Grid>
                 ))}

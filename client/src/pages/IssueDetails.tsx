@@ -32,7 +32,7 @@ function IssueDetails() {
   const dispatch = useAppDispatch();
 
   const { issue, isLoading, isError, message } = useAppSelector(
-    (state) => state.issues
+    (state) => state.issues,
   );
 
   const [isEditing, setIsEditing] = useState(false);
@@ -71,7 +71,7 @@ function IssueDetails() {
       updateExistingIssue({
         id,
         issueData: { title, description, status, priority, severity },
-      })
+      }),
     );
 
     if (updateExistingIssue.fulfilled.match(resultAction)) {
@@ -86,7 +86,8 @@ function IssueDetails() {
 
     const originalStatus = issue?.status;
     const statusChangedToSensitive =
-      status !== originalStatus && (status === "Resolved" || status === "Closed");
+      status !== originalStatus &&
+      (status === "Resolved" || status === "Closed");
 
     if (statusChangedToSensitive) {
       setPendingSubmit(() => submitUpdate);
@@ -149,15 +150,17 @@ function IssueDetails() {
         <Stack spacing={3}>
           <Stack
             direction={{ xs: "column", sm: "row" }}
-            justifyContent="space-between"
             spacing={2}
+            sx={{ justifyContent: "space-between" }}
           >
             <Box>
               <Typography variant="h3" gutterBottom>
                 {isEditing ? "Edit Issue" : issue.title}
               </Typography>
               {!isEditing && (
-                <Typography color="text.secondary">{issue.description}</Typography>
+                <Typography color="text.secondary">
+                  {issue.description}
+                </Typography>
               )}
             </Box>
 
@@ -176,7 +179,11 @@ function IssueDetails() {
                     <Card sx={{ boxShadow: "none" }}>
                       <CardContent>
                         <Typography color="text.secondary">Status</Typography>
-                        <Chip label={issue.status} color="primary" sx={{ mt: 1 }} />
+                        <Chip
+                          label={issue.status}
+                          color="primary"
+                          sx={{ mt: 1 }}
+                        />
                       </CardContent>
                     </Card>
                   </Grid>
@@ -185,7 +192,11 @@ function IssueDetails() {
                     <Card sx={{ boxShadow: "none" }}>
                       <CardContent>
                         <Typography color="text.secondary">Priority</Typography>
-                        <Chip label={issue.priority} color="warning" sx={{ mt: 1 }} />
+                        <Chip
+                          label={issue.priority}
+                          color="warning"
+                          sx={{ mt: 1 }}
+                        />
                       </CardContent>
                     </Card>
                   </Grid>
@@ -204,7 +215,9 @@ function IssueDetails() {
                   <Grid size={{ xs: 12, md: 6 }}>
                     <Card sx={{ boxShadow: "none" }}>
                       <CardContent>
-                        <Typography color="text.secondary">Created At</Typography>
+                        <Typography color="text.secondary">
+                          Created At
+                        </Typography>
                         <Typography sx={{ mt: 1 }}>
                           {issue.createdAt
                             ? new Date(issue.createdAt).toLocaleString()
@@ -217,7 +230,9 @@ function IssueDetails() {
                   <Grid size={{ xs: 12, md: 6 }}>
                     <Card sx={{ boxShadow: "none" }}>
                       <CardContent>
-                        <Typography color="text.secondary">Updated At</Typography>
+                        <Typography color="text.secondary">
+                          Updated At
+                        </Typography>
                         <Typography sx={{ mt: 1 }}>
                           {issue.updatedAt
                             ? new Date(issue.updatedAt).toLocaleString()
@@ -229,7 +244,10 @@ function IssueDetails() {
                 </Grid>
 
                 <Stack direction="row" spacing={2} sx={{ mt: 4 }}>
-                  <Button variant="contained" onClick={() => setIsEditing(true)}>
+                  <Button
+                    variant="contained"
+                    onClick={() => setIsEditing(true)}
+                  >
                     Edit Issue
                   </Button>
                   <Button

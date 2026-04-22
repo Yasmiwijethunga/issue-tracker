@@ -4,8 +4,8 @@
 A full-stack issue tracking and bug management system built with modern web technologies. Create, manage, and track issues with an intuitive UI, powerful filtering, and real-time updates.
 
 Live Demo
-🌐 Frontend: https://issue-tracker-y.vercel.app/
-⚙️ Backend API: https://issue-tracker-production-8fc5.up.railway.app/
+**🌐 Frontend: https://issue-tracker-y.vercel.app/**
+**⚙️ Backend API: https://issue-tracker-production-8fc5.up.railway.app/**
 
 
 ##  Features
@@ -291,7 +291,7 @@ GET /api/issues?page=1&limit=10&search=bug&status=Open&priority=High
 1. Push code to GitHub
 2. Connect repository to Vercel
 3. Set environment variable:
-   - `VITE_API_URL`: Your Railway backend URL
+   - `VITE_API_URL`: issue-tracker-production-8fc5.up.railway.app
 4. Deploy automatically on push
 
 **Vercel Configuration** (included in `vercel.json`):
